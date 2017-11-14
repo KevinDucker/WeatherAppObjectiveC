@@ -14,7 +14,6 @@
     self = [super init];
     
     if (self) {
-        
         _name = @"";
         _latitude = 0.0;
         _longitude =0.0;
@@ -71,18 +70,20 @@
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             //[self init:responseWeather];
             if ([self init:responseWeather]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"getWeatherSuccess" object:responseObject];
+                if(_delegate != nil){
+                    [_delegate successWeatherModel];
+                }
             }
         }
         else
         {
             NSLog(@"Error");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"getWeatherError" object:responseObject];
+            [_delegate errorWeatherModel];
         }
         
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"getWeatherError" object:error];
         NSLog(@"Fail");
+        [_delegate errorWeatherModel];
     }
      ];
 }

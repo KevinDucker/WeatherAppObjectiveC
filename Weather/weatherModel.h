@@ -9,7 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 
-@interface weatherModel : NSObject
+@protocol weatherModelDelegate <NSObject>
+
+@optional
+-(void) successWeatherModel;
+-(void) errorWeatherModel;
+@end
+
+@interface weatherModel : NSObject{
+
+__weak id <weatherModelDelegate> _delegate;
+    
+}
+@property (nonatomic,weak) id <weatherModelDelegate> delegate;
 
 @property (nonatomic,weak) NSString * name;
 @property double latitude;

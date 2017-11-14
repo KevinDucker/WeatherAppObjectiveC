@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "weatherModel.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <weatherModelDelegate,CLLocationManagerDelegate> {
+    CLLocationManager *locationManager;
+}
+
 @property (weak, nonatomic) IBOutlet UILabel *lb_title;
 @property (weak, nonatomic) IBOutlet UILabel *lb_description;
 @property (weak, nonatomic) IBOutlet UILabel *lb_latitude;
